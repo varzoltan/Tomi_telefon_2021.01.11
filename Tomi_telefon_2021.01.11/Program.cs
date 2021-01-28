@@ -85,23 +85,38 @@ namespace Tomi_telefon_2021._01._11
             int idomasodperc = int.Parse(ido[2]);
             int egybeido = mbe(idoora,idoperc,idomasodperc);
             int szamol1 = 0;
-            for (int i =0; i<n; i++)
+            int beszelo = -1;
+            for (int i = n-1; i>=0; i--)
             {
                 int bejovoido = mbe(adatok[i].beerkezoora, adatok[i].beerkezoperc, adatok[i].beerkezomasodperc);
                 int kimenoido = mbe(adatok[i].kimenoora, adatok[i].kimenoperc, adatok[i].kimenomasodperc);
                 if (egybeido>= bejovoido && egybeido <= kimenoido)
                 {
                     szamol1++;
+                    beszelo = i;
                 }
             }
-            if (szamol1 != 0)
+            if (beszelo > -1)
             {
-                Console.WriteLine($"A várakozók száma: {szamol1} a beszélő a . hívó.");
+                Console.WriteLine($"A várakozók száma: {szamol1 -1} a beszélő a {beszelo + 1}. hívó.");
             }
             else
             {
                 Console.WriteLine("Nem volt beszélő.");
             }
+
+            //6.feladat
+            int mbefejez = mbe(12, 0, 0);
+            int vegso = 0, vegsoelott = 0;
+            for (int i = 0; i < n; i++)
+            {
+                if ((mbe(adatok[i].beerkezoora, adatok[i].beerkezoperc, adatok[i].beerkezomasodperc) < mbefejez) && (mbe(adatok[i].kimenoora, adatok[i].kimenoperc, adatok[i].kimenomasodperc) > mbe(adatok[vegso].beerkezoora, adatok[vegso].beerkezoperc, adatok[vegso].beerkezomasodperc)))
+                {
+                    vegsoelott = vegso;
+                    vegso = i;
+                }
+            }
+            Console.WriteLine($"6. feladat\nAz utolso telefonalo adatai a(z) {vegso+1}. sorban vannak, {mbe(adatok[vegsoelott].kimenoora, adatok[vegsoelott].kimenoperc, adatok[vegsoelott].kimenomasodperc) - mbe(adatok[vegso].beerkezoora, adatok[vegso].beerkezoperc, adatok[vegso].beerkezomasodperc)} masodpercig vart.");
             Console.ReadKey();
           
         }
